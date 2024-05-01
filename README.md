@@ -1,6 +1,6 @@
-**Hello**🖐 **Automated Testing for automationExercise Demo Website with Selenium (Pytest, POM, HTML Reports, Jenkins Pipeline)**
+**Hello**🖐 **Automated Testing for bankingProject Demo Website with Selenium (Pytest, POM, HTML Reports, Jenkins Pipeline)**
 
-This project tests various functionalities of the automationExercise(E-COMMERCE) demo website, such as register, add to cart, remove products in cart,  and place order.
+This project tests various functionalities of the bankingProject(BANKING) demo website, such as login, deposit, withdraw,  and check transaction.
 ___________________________________________
 
 🎯 **Pre-requisites:**
