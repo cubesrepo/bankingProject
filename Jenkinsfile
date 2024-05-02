@@ -14,7 +14,7 @@ pipeline{
         }
         stage("Run tests"){
             steps{
-                bat 'bankingProjectVENV\\Scripts\\activate && pytest -v --html=report.html'
+                bat 'bankingProjectVENV\\Scripts\\activate && pytest -v --html=report.html --headless'
             }
         }
     }
