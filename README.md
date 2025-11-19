@@ -1,6 +1,7 @@
 **Hello**🖐 **Automated Testing for bankingProject Demo Website with (Selenium, Pytest, Page Object Model(POM), Allure Reports, Jenkins Pipeline)**
 
 This project covers automated tests for the bankingProject (BANKING) demo site, focusing on the core user flows such as valid login, successful deposit, successful withdrawal, and verifying the transaction history after each action.
+
 Aside from the main scenarios, I also checked several edge cases to see how the system behaves when users perform unusual or invalid actions. 
 These include:
    - Trying to log in without selecting a username 
