@@ -1,35 +1,67 @@
-import time
+from selenium.common import TimeoutException
 
-import test_data
 from pages.base_page import BasePage
 
+from utilities import test_data
 
 class LoginPage(BasePage):
+    def click_customer_login_btn(self):
+        self.wait_clickable(test_data.login.CUSTOMER_LOGIN).click()
+    def click_bank_login_btn(self):
+        self.wait_clickable(test_data.login.BANK_LOGIN).click()
+    def click_login_btn(self):
+        self.wait_clickable(test_data.login.LOGIN_BTN).click()
+    def select_login_user(self, user, by="value"):
+        self.select_dropdown_value(test_data.login.USER_SELECT,user, by)
+    def get_welcome_username(self):
+        return self.get_text(test_data.home.WELCOME_NAME)
+    def click_user_select(self):
+        self.wait_clickable(test_data.login.USER_SELECT).click()
 
-    def verify_customer_login(self):
-        time.sleep(2)
+    def verify_valid_login(self):
+        self.click_customer_login_btn()
+        self.click_user_select()
+        self.select_login_user("2")
+        self.click_login_btn()
 
-        #click customer login
-        self.wait_clickable(test_data.login.CUSTOMER_LOGIN, 15).click()
+        current_result_welcome_name = self.get_welcome_username()
 
-        time.sleep(0.5)
+        return current_result_welcome_name.strip()
 
-        #assert page url
-        assert self.url_is("https://www.globalsqa.com/angularJs-protractor/BankingProject/#/customer")
+    def verify_login_without_name_selected(self):
+        self.click_customer_login_btn()
+        self.click_user_select()
+        self.select_login_user("---Your Name---", "visible_text")
 
-        #select yourname
-        select_user = self.wait_clickable(test_data.login.USER_SELECT, 15)
-        select_user.click()
-        time.sleep(0.5)
+        try:
+            self.wait_visibility(test_data.login.LOGIN_BTN)
+            return True
+        except TimeoutException:
+            return False
 
-        #select harry potter name
-        self.action_click(self.select_by_visible_text(select_user, "Harry Potter"))
 
-        #click login
-        self.wait_clickable(test_data.login.LOGIN_BTN, 15).click()
 
-        time.sleep(1)
 
-        #check page url and welcome name
-        assert self.url_is("https://www.globalsqa.com/angularJs-protractor/BankingProject/#/account")
-        assert "Harry Potter" in self.get_text(test_data.home.WELCOME_NAME, 15)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

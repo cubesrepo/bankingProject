@@ -23,6 +23,7 @@ class withdraw:
     MESSAGE = By.XPATH, "//span[@class='error ng-binding']"
 class login:
     CUSTOMER_LOGIN = By.XPATH, "//button[normalize-space()='Customer Login']"
-    USER_SELECT = By.XPATH, "//select[@name='userSelect']"
+    BANK_LOGIN = By.XPATH, "//button[normalize-space()='Bank Manager Login']"
+    USER_SELECT = By.XPATH, "//select[@id='userSelect']"
     LOGIN_BTN = By.XPATH, "//button[@type='submit']"
     HOME = By.XPATH, "//button[@class='btn home']"

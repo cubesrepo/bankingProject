@@ -1,45 +1,35 @@
-import time
-import warnings
-
-
 from selenium.webdriver.common.by import By
 
-import test_data
 from pages.base_page import BasePage
-from pages.deposit_page import DepositPage
+from utilities import test_data
 
 
 class TransactionPage(BasePage):
-    def reset_transaction_lists(self):
-        time.sleep(2)
+    def click_transaction(self):
+        self.wait_clickable(test_data.home.TRANSACTIONS).click()
+    def click_back_btn(self):
+        self.wait_clickable(test_data.transaction.BACK).click()
+    def click_reset_btn(self):
+        self.wait_clickable(test_data.transaction.RESET ).click()
+    def get_amount(self, amount):
+        if not isinstance(amount, (list, tuple)):
+            element = (By.XPATH, f"//td[normalize-space()='{amount}']")
+            return self.get_text(element)
 
-        #click reset
-        self.wait_clickable(test_data.transaction.RESET, 15).click()
+        results = []
+        for amt in amount:
+            element = (By.XPATH, f"//td[normalize-space()='{amt}']")
+            results.append(self.get_text(element))
+        return results
 
-    def verify_transaction_information(self, amount_value, date_time):
-        time.sleep(2)
+    def verify_amount_transaction(self, amounts):
+        self.click_transaction()
+        current_result_amounts = self.get_amount(amounts)
 
-        #click transaction menu
-        self.wait_clickable(test_data.home.TRANSACTIONS, 15).click()
+        return current_result_amounts
 
-        index = 0
-        while True:
-            try:
-                index += 1
-                row = By.XPATH, f"(//tr[@id='anchor{index}'])[1]"
-                date = By.XPATH, f"(//tr[@id='anchor{index}'])[1]/td[1]"
-                amount = By.XPATH,  f"(//tr[@id='anchor{index}'])[1]/td[2]"
-                self.wait_visibility(row, 3)
-            except:
-                break
 
-            if row:
-                date = self.get_text(date, 5)
-                amount = self.get_text(amount, 5)
-                assert date_time == date, f"Not found {date_time} in transaction {date}"
-                assert amount_value == amount, f"Not found {amount_value} in transaction {amount}"
-            else:
-                break
-        #click back
 
-        self.wait_clickable(test_data.transaction.BACK, 15).click()
+
+
+
